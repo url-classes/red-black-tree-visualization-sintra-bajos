@@ -74,6 +74,35 @@ body {
     width: 90px; /* Ancho completo de la página */
 }
 
+#RECORRIDOinhorden {
+  position: absolute;
+  left: 650px;
+  top: 92px;
+  z-index: 2;
+  height: 30px; /* Altura del rectángulo */
+  width: 170px; /* Ancho completo de la página */
+}
+
+#RECORRIDOpreorden {
+  position: absolute;
+  left: 835px;
+  top: 92px;
+  z-index: 2;
+  height: 30px; /* Altura del rectángulo */
+  width: 170px; /* Ancho completo de la página */
+}
+
+#RECORRIDOpostorden {
+  position: absolute;
+  left: 1020px;
+  top: 92px;
+  z-index: 2;
+  height: 30px; /* Altura del rectángulo */
+  width: 180px; /* Ancho completo de la página */
+}
+
+
+
 p {
     position: absolute;
     left: 100px;

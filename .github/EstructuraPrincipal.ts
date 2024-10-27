@@ -163,12 +163,15 @@ class RBTree {
         return this.searchNode(node.getRightChild(), value);
     }
 
-    private inhorden(nodo: NodeRBT): void {
+    private inhorden(nodo: NodeRBT): string {
+        let n = ""
         if (nodo.getLeftChild() !== this.leaf)
             this.inhorden(nodo.getLeftChild());
-        console.log(nodo.getData() + "(" + nodo.getColor() + ")");
+        n += (nodo.getData() + "(" + nodo.getColor() + ") ");
         if (nodo?.getRightChild() !== this.leaf)
             this.inhorden(nodo.getRightChild());
+
+        return n
     }
 
     private postorden(nodo: NodeRBT): void {
@@ -188,8 +191,9 @@ class RBTree {
             this.preorden(nodo.getRightChild());
     }
 
-    public printInhorden(): void {
-        this.inhorden(this.root);
+    public printInhorden(lugar: HTMLElement): void {
+        let n = this.inhorden(this.root);
+        lugar.textContent = "HOLA"
     }
 
     public printPostorden(): void {
@@ -320,11 +324,10 @@ class RBTree {
         while (node.getLeftChild() !== this.leaf) {
             node = node.getLeftChild();
         }
-        return node;
+        return node;
     }
 
     
-
     public insert(data: number): void {
         // Inserción normal de BST
         let newNode: NodeRBT = new NodeRBT(data);
@@ -363,6 +366,12 @@ class RBTree {
     }
 }
 
+//main
+
+const botonforinhorden = document.getElementById("RECORRIDOinhorden") as HTMLButtonElement;
+const textoQUECAMBIA = document.getElementById("Textocambiante") as HTMLElement;
+
+
 const laboratorio4: RBTree = new RBTree();
 
 
@@ -380,9 +389,9 @@ laboratorio4.insert(20);
 laboratorio4.insert(15);
 
 
-
 console.log("/-/ Inhorden: /-/")
-laboratorio4.printInhorden();
+
+botonforinhorden.addEventListener("click", () => laboratorio4.printInhorden(textoQUECAMBIA));
 
 console.log("\n/-/ Preorden: /-/")
 laboratorio4.printPreorden();
@@ -392,6 +401,3 @@ laboratorio4.printPostorden();
 
 console.log("******* Después de Eliminar *******")
 laboratorio4.deleteNode(9)
-
-
-laboratorio4.printInhorden()
