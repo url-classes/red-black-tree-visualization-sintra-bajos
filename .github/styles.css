@@ -16,8 +16,20 @@ body {
     left: 0px;
     top: 87px;
     height: 40px; /* Altura del rectángulo */
-    width: 1546px; /* Ancho completo de la página */
+    width: 1528px; /* Ancho completo de la página */
     z-index: 1;
+}
+
+#TITULOorden {
+  position: absolute;
+  left: 1180px;
+  top: 130px;
+}
+
+#IMPRIMIRorden {
+  position: absolute;
+  left: 1180px;
+  top: 165px;
 }
 
 #datos {
@@ -74,7 +86,7 @@ body {
     width: 90px; /* Ancho completo de la página */
 }
 
-#RECORRIDOinhorden {
+#BOTONinhorden {
   position: absolute;
   left: 650px;
   top: 92px;
@@ -83,7 +95,7 @@ body {
   width: 170px; /* Ancho completo de la página */
 }
 
-#RECORRIDOpreorden {
+#BOTONpreorden {
   position: absolute;
   left: 835px;
   top: 92px;
@@ -92,7 +104,7 @@ body {
   width: 170px; /* Ancho completo de la página */
 }
 
-#RECORRIDOpostorden {
+#BOTONpostorden {
   position: absolute;
   left: 1020px;
   top: 92px;
@@ -112,13 +124,16 @@ body {
   width: 800px;           
   height: 575px;           
   background-color: #f0f0f0;
+  position: absolute;
+  left: 360px;
+  top: 140px;
 }
 
 
-p {
+#Textocambiante {
     position: absolute;
-    left: 100px;
-    top: 170px;
+    left: 20px;
+    top: 130px;
 }
   
   /* Estilos para el encabezado */

@@ -139,38 +139,44 @@ var RBTree = /** @class */ (function () {
         // Si el valor es mayor, buscamos en el hijo derecho
         return this.searchNode(node.getRightChild(), value);
     };
+    var n = " ";
     RBTree.prototype.inhorden = function (nodo) {
-        var n = "";
         if (nodo.getLeftChild() !== this.leaf)
             this.inhorden(nodo.getLeftChild());
-        n += (nodo.getData() + "(" + nodo.getColor() + ") ");
+        n += nodo.getData() + "-";
         if ((nodo === null || nodo === void 0 ? void 0 : nodo.getRightChild()) !== this.leaf)
             this.inhorden(nodo.getRightChild());
         return n;
     };
+    var b = " ";
     RBTree.prototype.postorden = function (nodo) {
         if (nodo.getLeftChild() !== this.leaf)
             this.postorden(nodo.getLeftChild());
         if ((nodo === null || nodo === void 0 ? void 0 : nodo.getRightChild()) !== this.leaf)
             this.postorden(nodo.getRightChild());
-        console.log(nodo.getData() + "(" + nodo.getColor() + ")");
+        b += nodo.getData() + "-";
+        return b
     };
+    var p = " ";
     RBTree.prototype.preorden = function (nodo) {
-        console.log(nodo.getData() + "(" + nodo.getColor() + ")");
+        p += nodo.getData() + "-";
         if (nodo.getLeftChild() !== this.leaf)
             this.preorden(nodo.getLeftChild());
         if ((nodo === null || nodo === void 0 ? void 0 : nodo.getRightChild()) !== this.leaf)
             this.preorden(nodo.getRightChild());
+        return p
     };
     RBTree.prototype.printInhorden = function (lugar) {
         var n = this.inhorden(this.root);
-        lugar.textContent = "HOLA";
+        lugar.textContent = n;
     };
-    RBTree.prototype.printPostorden = function () {
-        this.postorden(this.root);
+    RBTree.prototype.printPostorden = function (lugar) {
+        var b = this.postorden(this.root);
+        lugar.textContent = b;
     };
-    RBTree.prototype.printPreorden = function () {
-        this.preorden(this.root);
+    RBTree.prototype.printPreorden = function (lugar) {
+        var p = this.preorden(this.root);
+        lugar.textContent = p;
     };
     RBTree.prototype.deleteNode = function (value) {
         var nodeToDelete = this.searchNode(this.root, value);
@@ -372,7 +378,11 @@ var RBTree = /** @class */ (function () {
     return RBTree;
 }());
 //main
-var botonforinhorden = document.getElementById("RECORRIDOinhorden");
+var botonforinhorden = document.getElementById("BOTONinhorden");
+var botonforpreorden = document.getElementById("BOTONpreorden");
+var botonforpostorden = document.getElementById("BOTONpostorden");
+var textoforordenes = document.getElementById("TITULOorden");
+var textoforprinordenes = document.getElementById("IMPRIMIRorden");
 var textoQUECAMBIA = document.getElementById("Textocambiante");
 var botonAgregar = document.getElementById("botondatos");
 var botonEliminar = document.getElementById("botoneliminar");
@@ -387,6 +397,7 @@ var nodeRadius = 7;
 var nodeDistanceX = 20;
 var nodeDistanceY = 30;
 var arbolRBT = new RBTree();
+
 // Agregar un nodo
 botonAgregar.addEventListener("click", function () {
     var value = parseInt(inputAdd.value);
@@ -426,4 +437,19 @@ botonBuscar.addEventListener("click", function () {
     else {
         alert("Introduce un valor válido");
     }
+});
+
+botonforinhorden.addEventListener("click", function () {
+    textoforordenes.textContent = "Recorrer en Inhorden:"
+    arbolRBT.printInhorden(textoforprinordenes)
+});
+
+botonforpostorden.addEventListener("click", function () {
+    textoforordenes.textContent = "Recorrer en Postorden:"
+    arbolRBT.printPostorden(textoforprinordenes)
+});
+
+botonforpreorden.addEventListener("click", function () {
+    textoforordenes.textContent = "Recorrer en Preorden:"
+    arbolRBT.printPreorden(textoforprinordenes)
 });
