@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<header>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizador de un árbol rojo negro</title>
+  <link rel="stylesheet" href="styles.css">
+</header>
+
+<body>
+
+
+  <header>
+    <h1>Visualizador de Árbol Rojo Negro</h1>
+  </header>
+
+  <main>
+    <button id="botondatos">Agregar</button>
+    <button id="botoneliminar">Eliminar</button>
+    <button id="botonbuscar">Buscar</button>
+
+
+    <input id="datos", type="text", placeholder="Numero">
+    <input id="eliminar", type="text", placeholder="Numero">
+    <input id="buscar", type="text", placeholder="Numero">
+    
+
+    <div id="rectangulo" ></div>
+    
+
+  
+    <button id="BOTONinhorden">Recorrer en inhorden</button>
+    <button id="BOTONpreorden">Recorrer en preorden</button>
+    <button id="BOTONpostorden">Recorrido en postorden</button>
+
+    
+    <div id="canvas-container">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <h2 id="Textocambiante">Nodo encontrado: -</h2>
+
+    <h2 id="TITULOorden">Recorrer en -</h2>
+    <h2 id="IMPRIMIRorden">--</h2>
+
+    
+  
+
+    <script src="script.js"></script>
+  </main>
+
+</body>
+</html>
