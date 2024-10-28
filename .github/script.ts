@@ -71,6 +71,10 @@ class RBTree {
         this.list = new Array()
     }
 
+    public getRoot(): NodeRBT {
+        return this.root;
+    }    
+
     private fixInsert(testNode: NodeRBT): void {
         while (testNode !== this.root && testNode.getFather().getColor() == "RED") {
             // si el padre de testNode está en el hijo izquierdo del abuelo de testNode
@@ -148,7 +152,7 @@ class RBTree {
         x.setFather(y);
     }
 
-    private searchNode(node: NodeRBT, value: number): NodeRBT {
+    public searchNode(node: NodeRBT, value: number): NodeRBT {
         // Caso base: si llegamos a una hoja (leaf) o encontramos el valor
         if (node === this.leaf || value === node.getData()) {
             return node;
@@ -364,15 +368,122 @@ class RBTree {
         // corregir inserción
         this.fixInsert(newNode);
     }
+
+    public clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    
+    
+    
+    public drawTree(node: NodeRBT | null, x: number, y: number, offsetX: number) {
+        if (node && node !== this.leaf) {
+            // Dibujar el nodo actual
+            this.drawNode(node, x, y, ctx);
+    
+            // Dibujar las conexiones a los hijos
+            if (node.getLeftChild() && node.getLeftChild() !== this.leaf) {
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(x - offsetX, y + nodeDistanceY);
+                ctx.stroke();
+                this.drawTree(node.getLeftChild(), x - offsetX, y + nodeDistanceY, offsetX / 2);
+            }
+            if (node.getRightChild() && node.getRightChild() !== this.leaf) {
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(x + offsetX, y + nodeDistanceY);
+                ctx.stroke();
+                this.drawTree(node.getRightChild(), x + offsetX, y + nodeDistanceY, offsetX / 2);
+            }
+        }
+    }
+
+    public drawNode(node: NodeRBT, x: number, y: number, ctx: CanvasRenderingContext2D) {
+        if (node) {
+            // Dibuja el nodo como un círculo
+            ctx.beginPath();
+            ctx.arc(x, y, nodeRadius, 0, 2 * Math.PI); // 20 es el radio
+            ctx.fillStyle = node.getColor() === 'RED' ? '#FF0000' : '#000000'; // Cambia el color del nodo
+            ctx.fill();
+            ctx.stroke();
+    
+            // Dibuja el valor del nodo
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = '8px Arial';
+            ctx.fillText(node.getData().toString(), x - 5, y + 3);
+        }
+    }
+    
 }
 
 //main
 
 const botonforinhorden = document.getElementById("RECORRIDOinhorden") as HTMLButtonElement;
 const textoQUECAMBIA = document.getElementById("Textocambiante") as HTMLElement;
+const botonAgregar = document.getElementById("botondatos") as HTMLButtonElement;
+const botonEliminar = document.getElementById("botoneliminar") as HTMLButtonElement;
+const botonBuscar = document.getElementById("botonbuscar") as HTMLButtonElement;
+
+const inputAdd = document.getElementById("datos") as HTMLInputElement;
+const inputDelete = document.getElementById("eliminar") as HTMLInputElement;
+const inputSearch = document.getElementById("buscar") as HTMLInputElement;
+
+const resultado = document.getElementById("Textocambiante") as HTMLElement;
+
+const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+const nodeRadius = 7;
+const nodeDistanceX = 20;
+const nodeDistanceY = 30;
+
+const arbolRBT = new RBTree();
 
 
-const laboratorio4: RBTree = new RBTree();
+
+// Agregar un nodo
+botonAgregar.addEventListener("click", () => {
+    const value = parseInt(inputAdd.value);
+    if (!isNaN(value)) {
+        arbolRBT.insert(value);
+        inputAdd.value = "";
+        arbolRBT.clearCanvas();
+        arbolRBT.drawTree(arbolRBT.getRoot(), canvas.width / 2, 15, 30);
+    } else {
+        alert("Introduce un valor válido");
+    }
+});
+
+// Eliminar un nodo
+botonEliminar.addEventListener("click", () => {
+    const value = parseInt(inputDelete.value);
+    if (!isNaN(value)) {
+        arbolRBT.deleteNode(value);
+        inputDelete.value = "";
+        arbolRBT.clearCanvas();
+        arbolRBT.drawTree(arbolRBT.getRoot(), canvas.width / 2, 15, 30);
+    } else {
+        alert("Introduce un valor válido");
+    }
+});
+
+botonBuscar.addEventListener("click", () => {
+    const value = parseInt(inputSearch.value);
+    if (!isNaN(value)) {
+        const resultNode = arbolRBT.searchNode(arbolRBT.getRoot(), value);
+        if (resultNode !== this.leaf) {
+            resultado.textContent = `Nodo encontrado: ${resultNode.getData()} (${resultNode.getColor()})`;
+        } else {
+            resultado.textContent = "Nodo no encontrado";
+        }
+        arbolRBT.clearCanvas();
+        arbolRBT.drawTree(arbolRBT.getRoot(), canvas.width / 2, 15, 30);
+    } else {
+        alert("Introduce un valor válido");
+    }
+});
+
+
+/*const laboratorio4: RBTree = new RBTree();
 
 
 laboratorio4.insert(9);
@@ -400,4 +511,4 @@ console.log("\n/-/ Postorden: /-/")
 laboratorio4.printPostorden();
 
 console.log("******* Después de Eliminar *******")
-laboratorio4.deleteNode(9)
+laboratorio4.deleteNode(9)*/

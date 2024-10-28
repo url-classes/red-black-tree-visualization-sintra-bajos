@@ -101,6 +101,18 @@ body {
   width: 180px; /* Ancho completo de la página */
 }
 
+#canvas-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  height: 75vh;           
+}
+
+#canvas {
+  width: 800px;           
+  height: 575px;           
+  background-color: #f0f0f0;
+}
 
 
 p {
